@@ -20,16 +20,24 @@ namespace Anacreon.Mobile
 
 		public MapControl(Universe universe)
 		{
-			Universe  = universe;
-			LastPoint = Point.Empty;
-			Offset    = Size.Empty;
-			Brushes   = new Brushes();
+			Universe    = universe;
+			LastPoint   = Point.Empty;
+			Offset      = Size.Empty;
+			Brushes     = new Brushes();
+			ContextMenu = new ContextMenu();
 
 			InitializeComponent();
 
+			using( var g = CreateGraphics() )
+			{
+				var cs = g.MeasureString("#", Font);
+				CharacterSize = new Size(Convert.ToInt32(cs.Width), Convert.ToInt32(cs.Height));
+			}
+
 			Disposed += (s, e) =>
 				{
-					Brushes.Dispose();
+					if( Brushes != null )
+						Brushes.Dispose();
 
 					if( m_off_img != null )
 						m_off_img.Dispose();
@@ -46,20 +54,16 @@ namespace Anacreon.Mobile
 					if( m_off_g != null )
 						m_off_g.Dispose();
 
-					m_off_img = new Bitmap(ClientRectangle.Width, ClientRectangle.Height);
-					m_off_g   = Graphics.FromImage(m_off_img);
+					m_off_img    = new Bitmap(ClientRectangle.Width, ClientRectangle.Height);
+					m_off_g      = Graphics.FromImage(m_off_img);
+					m_off_g.Clip = new Region(new Rectangle(CharacterSize.Width, CharacterSize.Height, ClientRectangle.Width - (CharacterSize.Width * 2), ClientRectangle.Height - (CharacterSize.Height * 2)));
+
+					DrawX = (int)Math.Ceiling(m_off_g.ClipBounds.Width / ((float)CharacterSize.Width * 3f));
+					DrawY = (int)Math.Ceiling(m_off_g.ClipBounds.Height / (float)CharacterSize.Height);
 				};
 
-			ContextMenu = new ContextMenu();
-
-			using( var g = CreateGraphics() )
-			{
-				var cs = g.MeasureString("#", Font);
-				CharacterSize = new Size(Convert.ToInt32(cs.Width), Convert.ToInt32(cs.Height));
-			}
-
-			//m_curmap      = new Bitmap(((Universe.Sectors.GetLength(0) * 3) + 2) * CharacterSize.Width, (Universe.Sectors.GetLength(1) + 2) * CharacterSize.Height, PixelFormat.Format16bppRgb555);
-			m_curmap      = new Bitmap((Universe.Sectors.GetLength(0) * 3) * CharacterSize.Width, Universe.Sectors.GetLength(1) * CharacterSize.Height);
+			m_curmap      = new Bitmap(((Universe.Sectors.GetLength(0) * 3) + 2) * CharacterSize.Width, (Universe.Sectors.GetLength(1) + 2) * CharacterSize.Height, PixelFormat.Format16bppRgb555);
+			//m_curmap      = new Bitmap((Universe.Sectors.GetLength(0) * 3) * CharacterSize.Width, Universe.Sectors.GetLength(1) * CharacterSize.Height);
 			m_item_probe  = CreateMenuItem("Send Probe", Menu_SendProbe);
 			m_item_csep   = CreateMenuItem("-",          null);
 			m_item_cancel = CreateMenuItem("Cancel",     null);
@@ -90,85 +94,34 @@ namespace Anacreon.Mobile
 
 		private Brushes Brushes { get; set; }
 
+		private int DrawX { get; set; }
+
+		private int DrawY { get; set; }
+
 		protected override void OnPaint(PaintEventArgs e)
 		{
 			this.SuspendLayout();
 
 			var sect_x = Offset.Width / (CharacterSize.Width * 3);
-			var off_x  = (sect_x * CharacterSize.Width * 3) - Offset.Width;
-			var drw_x  = Math.Ceiling(ClientRectangle.Width / (CharacterSize.Width * 3));
+			var off_x  = (sect_x * CharacterSize.Width * 3) - Offset.Width + CharacterSize.Width;
 
 			var sect_y = Offset.Height / CharacterSize.Height;
 			var off_y  = (sect_y * CharacterSize.Height) - Offset.Height;
-			var drw_y  = Math.Ceiling(ClientRectangle.Height / CharacterSize.Height);
 
 			var dcnt = 0;
+			var sw   = System.Diagnostics.Stopwatch.StartNew();
 
-			var sw = System.Diagnostics.Stopwatch.StartNew();
-
-			// draw (part of) the off-screen image onto the screen
-			//e.Graphics.DrawImage(m_curmap, 0, 0, new Rectangle(Offset.Width, Offset.Height, ClientRectangle.Width, ClientRectangle.Height), GraphicsUnit.Pixel);
-
-			//e.Graphics.Clear(Color.Black);
 			m_off_g.Clear(Color.Black);
-
-			// 165 draws by default
-			// 140 draws by combining
-			//  39 draws by drawing grid early
-			//  30 draws by grouping by brush per-line
-
-			/*for( var y = 0; y < drw_y + 1; y++ )
-			{
-				var y_pos = (y * CharacterSize.Height) + off_y;
-
-				for( var x = 0; x < drw_x + 1; x++ )
-				{
-					var these_chars = GetSectorChars(Universe, x + sect_x, y + sect_y, Brushes);
-					var x_pos       = x * CharacterSize.Width * 3;
-
-					if( these_chars[0].Brush == these_chars[1].Brush && these_chars[0].Brush == these_chars[2].Brush )
-					{
-						if( these_chars[0].Character != null || these_chars[1].Character != null || these_chars[2].Character != null )
-						{
-							var s = string.Concat(these_chars[0].Character ?? " ", these_chars[1].Character ?? " ", these_chars[2].Character ?? " ");
-
-							dcnt++;
-
-							m_off_g.DrawString(s, Font, these_chars[0].Brush, x_pos + (CharacterSize.Width * 0) + off_x, y_pos);
-						}
-					}
-					else
-					{
-						if( these_chars[0].Character != null )
-						{
-							dcnt++;
-							m_off_g.DrawString(these_chars[0].Character, Font, these_chars[0].Brush, x_pos + (CharacterSize.Width * 0) + off_x, y_pos);
-						}
-
-						if( these_chars[1].Character != null )
-						{
-							dcnt++;
-							m_off_g.DrawString(these_chars[1].Character, Font, these_chars[1].Brush, x_pos + (CharacterSize.Width * 1) + off_x, y_pos);
-						}
-
-						if( these_chars[2].Character != null )
-						{
-							dcnt++;
-							m_off_g.DrawString(these_chars[2].Character, Font, these_chars[2].Brush, x_pos + (CharacterSize.Width * 2) + off_x, y_pos);
-						}
-					}
-				}
-			}*/
 
 			var swb = new System.Diagnostics.Stopwatch();
 			var sws = new System.Diagnostics.Stopwatch();
 
-			for( var y = 0; y < drw_y + 1; y++ )
+			for( var y = 0; y <= DrawY && y + sect_y <= Universe.Sectors.GetUpperBound(1); y++ )
 			{
-				var y_pos = (y * CharacterSize.Height) + off_y;
+				var y_pos = (y * CharacterSize.Height) + off_y + CharacterSize.Height;
 				var sects = new List<SectorChar[]>();
 
-				for( var x = 0; x < drw_x + 1; x++ )
+				for( var x = 0; x <= DrawX && x + sect_x <= Universe.Sectors.GetUpperBound(0); x++ )
 					sects.Add(GetSectorChars(Universe, x + sect_x, y + sect_y, Brushes));
 
 				var chars = sects.SelectMany(a => a);
@@ -181,8 +134,6 @@ namespace Anacreon.Mobile
 				{
 					sws.Start();
 					var s = new string(chars.Select(c => c.Brush == b && c.Character != '\0' ? c.Character : ' ').ToArray());
-					//var s = new string(chars.Select(c => c.Brush == b && c.Character != null ? c.Character[0] : ' ').ToArray());
-					//var s = string.Concat(chars.Select(c => c.Brush == b && c.Character != null ? c.Character : " ").ToArray());
 					sws.Stop();
 
 					dcnt++;
@@ -191,6 +142,15 @@ namespace Anacreon.Mobile
 			}
 
 			e.Graphics.DrawImage(m_off_img, 0, 0);
+
+			if( SelectedSector != null )
+			{
+				var coord_x = (((SelectedSector.Value.X * 3) + 1) * CharacterSize.Width) - Offset.Width;
+				var coord_y = ((SelectedSector.Value.Y) * CharacterSize.Height) - Offset.Height;
+
+				e.Graphics.DrawString("┌ ┐", Font, Brushes.White, coord_x, coord_y);
+				e.Graphics.DrawString("└ ┘", Font, Brushes.White, coord_x, coord_y + (CharacterSize.Height * 2));
+			}
 
 			sw.Stop();
 
@@ -210,11 +170,8 @@ namespace Anacreon.Mobile
 					var coord_x = (((SelectedSector.Value.X * 3) + 1) * CharacterSize.Width) - Offset.Width;
 					var coord_y = ((SelectedSector.Value.Y) * CharacterSize.Height) - Offset.Height;
 
-					e.Graphics.DrawString(string.Format("sel point: {0}, {1}", SelectedSector.Value.X, SelectedSector.Value.Y), font, brush, 0, 350);
+					e.Graphics.DrawString(string.Format("sel sect: {0}, {1}", SelectedSector.Value.X, SelectedSector.Value.Y), font, brush, 0, 350);
 					e.Graphics.DrawString(string.Format("sel coord: {0}, {1}", coord_x, coord_y), font, brush, 0, 380);
-
-					e.Graphics.DrawString("┌ ┐", Font, Brushes.White, coord_x, coord_y);
-					e.Graphics.DrawString("└ ┘", Font, Brushes.White, coord_x, coord_y + (CharacterSize.Height * 2));
 				}
 			}
 
