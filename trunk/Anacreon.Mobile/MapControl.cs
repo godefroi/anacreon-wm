@@ -99,8 +99,6 @@ namespace Anacreon.Mobile
 
 		protected override void OnPaint(PaintEventArgs e)
 		{
-			this.SuspendLayout();
-
 			var sect_x = Offset.Width / (CharacterSize.Width * 3);
 			var off_x  = (sect_x * CharacterSize.Width * 3) - Offset.Width + CharacterSize.Width;
 
@@ -123,13 +121,9 @@ namespace Anacreon.Mobile
 				for( var x = 0; x <= DrawX && x + sect_x <= Universe.Sectors.GetUpperBound(0); x++ )
 					sects.Add(GetSectorChars(Universe, x + sect_x, y + sect_y, Brushes));
 
-				var chars = sects.SelectMany(a => a);
+				var chars = sects.SelectMany(a => a).ToArray();
 
-				swb.Start();
-				var brushes = chars.Where(c => c.Brush != null).Select(c => c.Brush).Distinct().ToArray();
-				swb.Stop();
-
-				foreach( var b in brushes )
+				foreach( var b in chars.Where(c => c.Brush != null).Select(c => c.Brush).Distinct() )
 				{
 					sws.Start();
 					var s = new string(chars.Select(c => c.Brush == b && c.Character != '\0' ? c.Character : ' ').ToArray());
@@ -153,13 +147,13 @@ namespace Anacreon.Mobile
 
 			sw.Stop();
 
-			using( var brush = new SolidBrush(Color.Blue) )
+			/*using( var brush = new SolidBrush(Color.Blue) )
 			using( var font = new Font(Font.Name, Font.Size + 4, FontStyle.Bold) )
 			{
 				e.Graphics.DrawString(string.Format("char: {0}x{1}", CharacterSize.Width, CharacterSize.Height), font, brush, 0, 140);
 				e.Graphics.DrawString(string.Format("clirect: {0}x{1}", ClientRectangle.Width, ClientRectangle.Height), font, brush, 0, 170);
 				e.Graphics.DrawString(string.Format("map: {0}x{1}", m_mapsize.Width, m_mapsize.Height), font, brush, 0, 200);
-				e.Graphics.DrawString(string.Format("time: {0} {1} {2}", sw.ElapsedMilliseconds, swb.ElapsedMilliseconds, sws.ElapsedMilliseconds), font, brush, 0, 230);
+				e.Graphics.DrawString(string.Format("time: {0} {1}", sw.ElapsedMilliseconds, sws.ElapsedMilliseconds), font, brush, 0, 230);
 				e.Graphics.DrawString(string.Format("offset: h {0} v {1}", Offset.Width, Offset.Height), font, brush, 0, 260);
 				e.Graphics.DrawString(string.Format("last point: {0}, {1}", LastPoint.X, LastPoint.Y), font, brush, 0, 290);
 				e.Graphics.DrawString(string.Format("dcnt: {0}", dcnt), font, brush, 0, 320);
@@ -172,9 +166,7 @@ namespace Anacreon.Mobile
 					e.Graphics.DrawString(string.Format("sel sect: {0}, {1}", SelectedSector.Value.X, SelectedSector.Value.Y), font, brush, 0, 350);
 					e.Graphics.DrawString(string.Format("sel coord: {0}, {1}", coord_x, coord_y), font, brush, 0, 380);
 				}
-			}
-
-			this.ResumeLayout();
+			}*/
 
 			base.OnPaint(e);
 		}
