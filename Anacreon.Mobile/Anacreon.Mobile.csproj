@@ -83,11 +83,20 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="WorldForm.resx">
+      <DependentUpon>WorldForm.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SectorChar.cs" />
+    <Compile Include="WorldForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorldForm.Designer.cs">
+      <DependentUpon>WorldForm.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Anacreon.Engine\Anacreon.Engine.csproj">
