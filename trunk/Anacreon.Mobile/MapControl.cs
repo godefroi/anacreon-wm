@@ -11,12 +11,12 @@ namespace Anacreon.Mobile
 {
 	public partial class MapControl : UserControl
 	{
-		Image     m_curmap;
 		MenuItem  m_item_probe;
 		MenuItem  m_item_csep;
 		MenuItem  m_item_cancel;
 		Image     m_off_img;
 		Graphics  m_off_g;
+		Size      m_mapsize;
 
 		public MapControl(Universe universe)
 		{
@@ -62,8 +62,7 @@ namespace Anacreon.Mobile
 					DrawY = (int)Math.Ceiling(m_off_g.ClipBounds.Height / (float)CharacterSize.Height);
 				};
 
-			m_curmap      = new Bitmap(((Universe.Sectors.GetLength(0) * 3) + 2) * CharacterSize.Width, (Universe.Sectors.GetLength(1) + 2) * CharacterSize.Height, PixelFormat.Format16bppRgb555);
-			//m_curmap      = new Bitmap((Universe.Sectors.GetLength(0) * 3) * CharacterSize.Width, Universe.Sectors.GetLength(1) * CharacterSize.Height);
+			m_mapsize     = new Size(((Universe.Sectors.GetLength(0) * 3) + 2) * CharacterSize.Width, (Universe.Sectors.GetLength(1) + 2) * CharacterSize.Height);
 			m_item_probe  = CreateMenuItem("Send Probe", Menu_SendProbe);
 			m_item_csep   = CreateMenuItem("-",          null);
 			m_item_cancel = CreateMenuItem("Cancel",     null);
@@ -159,7 +158,7 @@ namespace Anacreon.Mobile
 			{
 				e.Graphics.DrawString(string.Format("char: {0}x{1}", CharacterSize.Width, CharacterSize.Height), font, brush, 0, 140);
 				e.Graphics.DrawString(string.Format("clirect: {0}x{1}", ClientRectangle.Width, ClientRectangle.Height), font, brush, 0, 170);
-				e.Graphics.DrawString(string.Format("map: {0}x{1}", m_curmap.Width, m_curmap.Height), font, brush, 0, 200);
+				e.Graphics.DrawString(string.Format("map: {0}x{1}", m_mapsize.Width, m_mapsize.Height), font, brush, 0, 200);
 				e.Graphics.DrawString(string.Format("time: {0} {1} {2}", sw.ElapsedMilliseconds, swb.ElapsedMilliseconds, sws.ElapsedMilliseconds), font, brush, 0, 230);
 				e.Graphics.DrawString(string.Format("offset: h {0} v {1}", Offset.Width, Offset.Height), font, brush, 0, 260);
 				e.Graphics.DrawString(string.Format("last point: {0}, {1}", LastPoint.X, LastPoint.Y), font, brush, 0, 290);
@@ -221,12 +220,12 @@ namespace Anacreon.Mobile
 				offset.Height = 0;
 
 			// make sure we don't scroll off the right side
-			if( offset.Width > m_curmap.Width - ClientRectangle.Width )
-				offset.Width = m_curmap.Width - ClientRectangle.Width;
+			if( offset.Width > m_mapsize.Width - ClientRectangle.Width )
+				offset.Width = m_mapsize.Width - ClientRectangle.Width;
 
 			// make sure we don't scroll off the bottom
-			if( offset.Height > m_curmap.Height - ClientRectangle.Height )
-				offset.Height = m_curmap.Height - ClientRectangle.Height;
+			if( offset.Height > m_mapsize.Height - ClientRectangle.Height )
+				offset.Height = m_mapsize.Height - ClientRectangle.Height;
 
 			Offset    = offset;
 			LastPoint = new Point(e.X, e.Y);
