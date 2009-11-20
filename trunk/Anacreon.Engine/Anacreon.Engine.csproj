@@ -57,8 +57,12 @@
     <Compile Include="Construction.cs" />
     <Compile Include="Coordinate.cs" />
     <Compile Include="ConstructionType.cs" />
+    <Compile Include="Defenses.cs" />
     <Compile Include="PlayerState.cs" />
+    <Compile Include="Ships.cs" />
     <Compile Include="SpaceObjectType.cs" />
+    <Compile Include="Supplies.cs" />
+    <Compile Include="Troops.cs" />
     <Compile Include="World.cs" />
     <Compile Include="WorldType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
