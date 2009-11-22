@@ -16,6 +16,6 @@ namespace Anacreon.Engine
 
 		public int Starships { get; set; }
 
-		public int Trnasports { get; set; }
+		public int Transports { get; set; }
 	}
 }

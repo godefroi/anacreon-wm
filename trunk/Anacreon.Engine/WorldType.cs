@@ -19,5 +19,4 @@ namespace Anacreon.Engine
 		TrilliumMine,
 		University,
 	}
-
 }
