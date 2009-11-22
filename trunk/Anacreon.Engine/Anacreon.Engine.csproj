@@ -58,6 +58,7 @@
     <Compile Include="Coordinate.cs" />
     <Compile Include="ConstructionType.cs" />
     <Compile Include="Defenses.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="PlayerState.cs" />
     <Compile Include="Ships.cs" />
     <Compile Include="SpaceObjectType.cs" />

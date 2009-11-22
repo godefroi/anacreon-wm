@@ -19,5 +19,6 @@ namespace Anacreon.Engine
 
 		public Sector[,] Sectors { get; private set; }
 
+		public Player HumanPlayer { get; set; }
 	}
 }

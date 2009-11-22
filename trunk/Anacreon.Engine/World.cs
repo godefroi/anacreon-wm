@@ -10,12 +10,17 @@ namespace Anacreon.Engine
 			Ships    = new Ships();
 			Defenses = new Defenses();
 			Troops   = new Troops();
+
+			// TODO: remove this
+			Owner = new Player();
 		}
 
 		public override SpaceObjectType Type
 		{
 			get { return SpaceObjectType.World; }
 		}
+
+		public Player Owner { get; set; }
 
 		public WorldType WorldType { get; set; }
 
