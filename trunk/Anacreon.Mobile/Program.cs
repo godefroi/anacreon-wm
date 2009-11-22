@@ -7,45 +7,10 @@ namespace Anacreon.Mobile
 		[MTAThread]
 		static void Main()
 		{
-			/*var u = CreateUniverse();
-			var b = new Brushes();
-			var w = new System.Diagnostics.Stopwatch();
-			var c = 0;
-
-			using( var sw = new System.IO.StreamWriter("\\storage card\\map_chars.txt", false) )
-			{
-				for( var y = 0; y <= u.Sectors.GetUpperBound(1); y++ )
-				{
-					for( var x = 0; x <= u.Sectors.GetUpperBound(0); x++ )
-					{
-						w.Start();
-						var chars = MapControl.foo(u, new Anacreon.Engine.Coordinate(x, y), u.Sectors[x,y], b);
-						w.Stop();
-						c++;
-
-						if( chars[0].Character == '\0' )
-							sw.Write(' ');
-						else
-							sw.Write(chars[0].Character);
-
-						if( chars[1].Character == '\0' )
-							sw.Write(' ');
-						else
-							sw.Write(chars[1].Character);
-
-						if( chars[2].Character == '\0' )
-							sw.Write(' ');
-						else
-							sw.Write(chars[2].Character);
-					}
-
-					sw.WriteLine();
-				}
-
-				sw.WriteLine("{0} sectors in {1}ms", c, w.ElapsedMilliseconds);
-			}*/
+			//DrawTextMap();
 
 			System.Windows.Forms.Application.Run(new MainForm());
+
 			//System.Windows.Forms.Application.Run(new WorldForm(world));
 		}
 
@@ -252,6 +217,46 @@ namespace Anacreon.Mobile
 			};
 
 			return universe;
+		}
+
+		private static void DrawTextMap()
+		{
+			var u = CreateUniverse();
+			var w = new System.Diagnostics.Stopwatch();
+			var c = 0;
+
+			using( var sw = new System.IO.StreamWriter("\\storage card\\map_chars.txt", false) )
+			{
+				for( var y = 0; y <= u.Sectors.GetUpperBound(1); y++ )
+				{
+					for( var x = 0; x <= u.Sectors.GetUpperBound(0); x++ )
+					{
+						w.Start();
+						var chars = MapControl.GetSectorChars(u, x, y);
+						w.Stop();
+						c++;
+
+						if( chars[0].Character == '\0' )
+							sw.Write(' ');
+						else
+							sw.Write(chars[0].Character);
+
+						if( chars[1].Character == '\0' )
+							sw.Write(' ');
+						else
+							sw.Write(chars[1].Character);
+
+						if( chars[2].Character == '\0' )
+							sw.Write(' ');
+						else
+							sw.Write(chars[2].Character);
+					}
+
+					sw.WriteLine();
+				}
+
+				sw.WriteLine("{0} sectors in {1}ms", c, w.ElapsedMilliseconds);
+			}
 		}
 	}
 }
