@@ -23,7 +23,6 @@ namespace Anacreon.Mobile
 			Universe    = universe;
 			LastPoint   = Point.Empty;
 			Offset      = Size.Empty;
-			Brushes     = new Brushes();
 			ContextMenu = new ContextMenu();
 
 			InitializeComponent();
@@ -36,9 +35,6 @@ namespace Anacreon.Mobile
 
 			Disposed += (s, e) =>
 				{
-					if( Brushes != null )
-						Brushes.Dispose();
-
 					if( m_off_img != null )
 						m_off_img.Dispose();
 
@@ -91,8 +87,6 @@ namespace Anacreon.Mobile
 
 		private bool IsMoving { get; set; }
 
-		private Brushes Brushes { get; set; }
-
 		private int DrawX { get; set; }
 
 		private int DrawY { get; set; }
@@ -119,7 +113,7 @@ namespace Anacreon.Mobile
 				var sects = new List<SectorChar[]>();
 
 				for( var x = 0; x <= DrawX && x + sect_x <= Universe.Sectors.GetUpperBound(0); x++ )
-					sects.Add(GetSectorChars(Universe, x + sect_x, y + sect_y, Brushes));
+					sects.Add(GetSectorChars(Universe, x + sect_x, y + sect_y));
 
 				var chars = sects.SelectMany(a => a).ToArray();
 
@@ -291,7 +285,7 @@ namespace Anacreon.Mobile
 			return ret;
 		}
 
-		internal static SectorChar[] GetSectorChars(Universe u, int coord_x, int coord_y, Brushes b)
+		internal static SectorChar[] GetSectorChars(Universe u, int coord_x, int coord_y)
 		{
 			var skip_x = 5 - (u.HomeSector.X % 5);
 			var skip_y = 5 - (u.HomeSector.Y % 5);
@@ -305,14 +299,14 @@ namespace Anacreon.Mobile
 				if( (skip_x + coord_x) % 5 == 0 )
 				{
 					// time for a cross
-					ret[0].Character = '─'; ret[0].Brush = b.Gray;
-					ret[1].Character = '┼'; ret[1].Brush = b.Gray;
-					ret[2].Character = '─'; ret[2].Brush = b.Gray;
+					ret[0].Character = '─'; ret[0].Brush = Brushes.Gray;
+					ret[1].Character = '┼'; ret[1].Brush = Brushes.Gray;
+					ret[2].Character = '─'; ret[2].Brush = Brushes.Gray;
 				}
 				else
 				{
 					// time for a dot
-					ret[1].Character = '·'; ret[1].Brush = b.Gray;
+					ret[1].Character = '·'; ret[1].Brush = Brushes.Gray;
 				}
 			}
 			else
@@ -321,16 +315,16 @@ namespace Anacreon.Mobile
 				if( (skip_x + coord_x) % 5 == 0 )
 				{
 					// time for a dot
-					ret[1].Character = '·'; ret[1].Brush = b.Gray;
+					ret[1].Character = '·'; ret[1].Brush = Brushes.Gray;
 				}
 			}
 
 			// then, calculate nebula
 			if( s.Nebula )
 			{
-				ret[0].Character = '▒'; ret[0].Brush = b.Purple;
-				ret[1].Character = '▒'; ret[1].Brush = b.Purple;
-				ret[2].Character = '▒'; ret[2].Brush = b.Purple;
+				ret[0].Character = '▒'; ret[0].Brush = Brushes.Purple;
+				ret[1].Character = '▒'; ret[1].Brush = Brushes.Purple;
+				ret[2].Character = '▒'; ret[2].Brush = Brushes.Purple;
 			}
 
 			// finally, handle objects
@@ -342,7 +336,7 @@ namespace Anacreon.Mobile
 						switch( ((Construction)s.Object).ConstructionType )
 						{
 							case ConstructionType.CommandBase:
-								ret[1] = new SectorChar('b', b.Gray);
+								ret[1] = new SectorChar('b', Brushes.Gray);
 								break;
 							default:
 								throw new Exception("Unknown construction type");
@@ -352,14 +346,14 @@ namespace Anacreon.Mobile
 					case SpaceObjectType.World:
 						if( !s.Probed )
 						{
-							ret[1] = new SectorChar('p', b.Red);
+							ret[1] = new SectorChar('p', Brushes.Red);
 							break;
 						}
 
 						switch( ((World)s.Object).WorldType )
 						{
 							default:
-								ret[1] = new SectorChar('w', b.Gray);
+								ret[1] = new SectorChar('w', Brushes.Gray);
 								break;
 						}
 						break;
