@@ -35,7 +35,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.BackColor = System.Drawing.Color.Black;
-			this.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular);
+			this.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold);
 			this.ForeColor = System.Drawing.Color.White;
 			this.Name = "MapControl";
 			this.Size = new System.Drawing.Size(240, 400);
