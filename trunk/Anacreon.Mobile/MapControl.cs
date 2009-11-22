@@ -27,6 +27,8 @@ namespace Anacreon.Mobile
 			Offset      = Size.Empty;
 			ContextMenu = new ContextMenu();
 
+			//DoubleClick += (s, e) => { throw new Exception("double click"); };
+
 			InitializeComponent();
 
 			using( var g = CreateGraphics() )
@@ -35,30 +37,10 @@ namespace Anacreon.Mobile
 				CharacterSize = new Size(Convert.ToInt32(cs.Width), Convert.ToInt32(cs.Height));
 			}
 
-			Disposed += (s, e) =>
-				{
-					if( m_off_img != null )
-						m_off_img.Dispose();
+			Disposed += Form_Disposed;
+			Resize   += Form_Resize;
 
-					if( m_off_g != null )
-						m_off_g.Dispose();
-				};
-
-			Resize += (s, e) =>
-				{
-					if( m_off_img != null )
-						m_off_img.Dispose();
-
-					if( m_off_g != null )
-						m_off_g.Dispose();
-
-					m_off_img    = new Bitmap(ClientRectangle.Width, ClientRectangle.Height);
-					m_off_g      = Graphics.FromImage(m_off_img);
-					m_off_g.Clip = new Region(new Rectangle(CharacterSize.Width, CharacterSize.Height, ClientRectangle.Width - (CharacterSize.Width * 2), ClientRectangle.Height - (CharacterSize.Height * 2)));
-
-					DrawX = (int)Math.Ceiling(m_off_g.ClipBounds.Width / ((float)CharacterSize.Width * 3f));
-					DrawY = (int)Math.Ceiling(m_off_g.ClipBounds.Height / (float)CharacterSize.Height);
-				};
+			ContextMenu.Popup += ContextMenu_Popup;
 
 			m_mapsize = new Size(((Universe.Sectors.GetLength(0) * 3) + 2) * CharacterSize.Width, (Universe.Sectors.GetLength(1) + 2) * CharacterSize.Height);
 
@@ -67,15 +49,6 @@ namespace Anacreon.Mobile
 			m_item_tsep     = CreateMenuItem("-",            null);
 			m_item_csep     = CreateMenuItem("-",            null);
 			m_item_cancel   = CreateMenuItem("Cancel",       null);
-
-			KeyDown += (s, e) =>
-				{
-					if( e.KeyCode == Keys.Up )
-					{
-						Offset = new Size(Offset.Width + 1, Offset.Height);
-						Invalidate();
-					}
-				};
 		}
 
 		public event EventHandler<WorldSelectedEventArgs> WorldSelected;
@@ -155,23 +128,23 @@ namespace Anacreon.Mobile
 			sw.Stop();
 
 			/*using( var brush = new SolidBrush(Color.Blue) )
-			using( var font = new Font(Font.Name, Font.Size + 4, FontStyle.Bold) )
+			using( var font = new Font(Font.Name, Font.Size + 2, FontStyle.Bold) )
 			{
-				e.Graphics.DrawString(string.Format("char: {0}x{1}", CharacterSize.Width, CharacterSize.Height), font, brush, 0, 140);
-				e.Graphics.DrawString(string.Format("clirect: {0}x{1}", ClientRectangle.Width, ClientRectangle.Height), font, brush, 0, 170);
-				e.Graphics.DrawString(string.Format("map: {0}x{1}", m_mapsize.Width, m_mapsize.Height), font, brush, 0, 200);
-				e.Graphics.DrawString(string.Format("time: {0} {1}", sw.ElapsedMilliseconds, sws.ElapsedMilliseconds), font, brush, 0, 230);
-				e.Graphics.DrawString(string.Format("offset: h {0} v {1}", Offset.Width, Offset.Height), font, brush, 0, 260);
-				e.Graphics.DrawString(string.Format("last point: {0}, {1}", LastPoint.X, LastPoint.Y), font, brush, 0, 290);
-				e.Graphics.DrawString(string.Format("dcnt: {0}", dcnt), font, brush, 0, 320);
+				e.Graphics.DrawString(string.Format("char: {0}x{1}", CharacterSize.Width, CharacterSize.Height), font, brush, 0, 100);
+				e.Graphics.DrawString(string.Format("clirect: {0}x{1}", ClientRectangle.Width, ClientRectangle.Height), font, brush, 0, 120);
+				e.Graphics.DrawString(string.Format("map: {0}x{1}", m_mapsize.Width, m_mapsize.Height), font, brush, 0, 140);
+				e.Graphics.DrawString(string.Format("time: {0} {1}", sw.ElapsedMilliseconds, sws.ElapsedMilliseconds), font, brush, 0, 160);
+				e.Graphics.DrawString(string.Format("offset: h {0} v {1}", Offset.Width, Offset.Height), font, brush, 0, 180);
+				e.Graphics.DrawString(string.Format("last point: {0}, {1}", LastPoint.X, LastPoint.Y), font, brush, 0, 200);
+				e.Graphics.DrawString(string.Format("dcnt: {0}", dcnt), font, brush, 0, 220);
 
 				if( SelectedSector != null )
 				{
 					var coord_x = (((SelectedSector.Value.X * 3) + 1) * CharacterSize.Width) - Offset.Width;
 					var coord_y = ((SelectedSector.Value.Y) * CharacterSize.Height) - Offset.Height;
 
-					e.Graphics.DrawString(string.Format("sel sect: {0}, {1}", SelectedSector.Value.X, SelectedSector.Value.Y), font, brush, 0, 350);
-					e.Graphics.DrawString(string.Format("sel coord: {0}, {1}", coord_x, coord_y), font, brush, 0, 380);
+					e.Graphics.DrawString(string.Format("sel sect: {0}, {1}", SelectedSector.Value.X, SelectedSector.Value.Y), font, brush, 0, 240);
+					e.Graphics.DrawString(string.Format("sel coord: {0}, {1}", coord_x, coord_y), font, brush, 0, 260);
 				}
 			}*/
 
@@ -241,30 +214,14 @@ namespace Anacreon.Mobile
 			// is under the mouse
 			if( !IsMoving )
 			{
-				// select the sector
-				var sel_x = ((e.X + Offset.Width - (CharacterSize.Width / 2)) / CharacterSize.Width);
-				var sel_y = ((e.Y + Offset.Height) / CharacterSize.Height) - 1;
+				var sel_pt = GetSectorAtPoint(e.X, e.Y);
 
-				// if we didn't click a valid sector in the x plane, detect that
-				if( (sel_x + 1) % 3 == 0 )
-					sel_x = sel_x / 3;
-				else
-					sel_x = -1;
-
-				// if we selected a valid sector, track that
-				if( sel_x < 0 || sel_y < 0 || sel_x > Universe.Sectors.GetUpperBound(0) || sel_y > Universe.Sectors.GetUpperBound(1) )
-				{
+				if( sel_pt == null )
 					SelectedSector = null;
-				}
+				else if( sel_pt == SelectedSector )
+					ContextMenu.Show(this, new Point(e.X, e.Y));
 				else
-				{
-					var new_sel = new Point(sel_x, sel_y);
-
-					if( new_sel == SelectedSector )
-						ShowContextMenu(new Point(e.X, e.Y), Universe.Sectors[sel_x,sel_y]);
-					else
-						SelectedSector = new_sel;
-				}
+					SelectedSector = sel_pt;
 
 				Invalidate();
 			}
@@ -290,19 +247,53 @@ namespace Anacreon.Mobile
 			OnWorldSelected(new WorldSelectedEventArgs(x, y, w));
 		}
 
-		private void ShowContextMenu(Point where, Sector s)
+		private void ContextMenu_Popup(object sender, EventArgs e)
 		{
 			ContextMenu.MenuItems.Clear();
 
-			if( s.Object != null && s.Object.Type == SpaceObjectType.World )
+			if( SelectedSector != null )
 			{
-				ContextMenu.MenuItems.Add(m_item_selworld);
-				ContextMenu.MenuItems.Add(m_item_tsep);
+				var s = Universe.Sectors[SelectedSector.Value.X, SelectedSector.Value.Y];
+
+				if( s.Object != null && s.Object.Type == SpaceObjectType.World )
+				{
+					ContextMenu.MenuItems.Add(m_item_selworld);
+					ContextMenu.MenuItems.Add(m_item_tsep);
+				}
 			}
 
 			ContextMenu.MenuItems.Add(m_item_probe);
 			ContextMenu.MenuItems.Add(m_item_csep);
 			ContextMenu.MenuItems.Add(m_item_cancel);
+		}
+
+		private void Form_Disposed(object sender, EventArgs e)
+		{
+			if( m_off_img != null )
+				m_off_img.Dispose();
+
+			if( m_off_g != null )
+				m_off_g.Dispose();
+		}
+
+		private void Form_Resize(object sender, EventArgs e)
+		{
+			if( m_off_img != null )
+				m_off_img.Dispose();
+
+			if( m_off_g != null )
+				m_off_g.Dispose();
+
+			m_off_img    = new Bitmap(ClientRectangle.Width, ClientRectangle.Height);
+			m_off_g      = Graphics.FromImage(m_off_img);
+			m_off_g.Clip = new Region(new Rectangle(CharacterSize.Width, CharacterSize.Height, ClientRectangle.Width - (CharacterSize.Width * 2), ClientRectangle.Height - (CharacterSize.Height * 2)));
+
+			DrawX = (int)Math.Ceiling(m_off_g.ClipBounds.Width / ((float)CharacterSize.Width * 3f));
+			DrawY = (int)Math.Ceiling(m_off_g.ClipBounds.Height / (float)CharacterSize.Height);
+		}
+
+		private void ShowContextMenu(Point where, Sector s)
+		{
 
 			ContextMenu.Show(this, where);
 		}
@@ -317,6 +308,25 @@ namespace Anacreon.Mobile
 				ret.Click += handler;
 
 			return ret;
+		}
+
+		private Point? GetSectorAtPoint(int x, int y)
+		{
+			// select the sector
+			var sel_x = ((x + Offset.Width) / CharacterSize.Width);
+			var sel_y = ((y + Offset.Height) / CharacterSize.Height) - 1;
+
+			// if we didn't click a valid sector in the x plane, detect that
+			if( (sel_x + 1) % 3 == 0 )
+				sel_x = sel_x / 3;
+			else
+				sel_x = -1;
+
+			// if we selected a valid sector, track that
+			if( sel_x < 0 || sel_y < 0 || sel_x > Universe.Sectors.GetUpperBound(0) || sel_y > Universe.Sectors.GetUpperBound(1) )
+				return null;
+			else
+				return new Point(sel_x, sel_y);
 		}
 
 		internal static SectorChar[] GetSectorChars(Universe u, int coord_x, int coord_y)
@@ -384,10 +394,20 @@ namespace Anacreon.Mobile
 							break;
 						}
 
-						switch( ((World)s.Object).WorldType )
+						var w = (World)s.Object;
+						var b = Brushes.Gray;
+
+						if( w.Owner == u.HumanPlayer )
+							b = Brushes.White;
+
+						switch( w.WorldType )
 						{
+							case WorldType.Capitol:
+								ret[1] = new SectorChar('C', b);
+								break;
+
 							default:
-								ret[1] = new SectorChar('w', Brushes.Gray);
+								ret[1] = new SectorChar('w', b);
 								break;
 						}
 						break;
