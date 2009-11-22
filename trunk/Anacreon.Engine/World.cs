@@ -4,6 +4,14 @@ namespace Anacreon.Engine
 {
 	public class World : SpaceObject
 	{
+		public World()
+		{
+			Supplies = new Supplies();
+			Ships    = new Ships();
+			Defenses = new Defenses();
+			Troops   = new Troops();
+		}
+
 		public override SpaceObjectType Type
 		{
 			get { return SpaceObjectType.World; }
