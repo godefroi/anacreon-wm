@@ -116,6 +116,7 @@
     <Compile Include="WorldForm.Designer.cs">
       <DependentUpon>WorldForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorldSelectedEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Anacreon.Engine\Anacreon.Engine.csproj">
