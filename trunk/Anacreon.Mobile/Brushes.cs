@@ -3,30 +3,25 @@ using System.Drawing;
 
 namespace Anacreon.Mobile
 {
-	class Brushes : IDisposable
+	static class Brushes
 	{
-		public Brushes()
+		static Brushes()
 		{
 			Gray   = new SolidBrush(Color.Gray);
 			Purple = new SolidBrush(Color.Purple);
 			Red    = new SolidBrush(Color.Red);
 			White  = new SolidBrush(Color.White);
+			Black  = new SolidBrush(Color.Black);
 		}
 
-		public void Dispose()
-		{
-			Gray.Dispose();
-			Purple.Dispose();
-			Red.Dispose();
-			White.Dispose();
-		}
+		public static Brush Gray { get; private set; }
 
-		public Brush Gray { get; private set; }
+		public static Brush Purple { get; private set; }
 
-		public Brush Purple { get; private set; }
+		public static Brush Red { get; private set; }
 
-		public Brush Red { get; private set; }
+		public static Brush White { get; private set; }
 
-		public Brush White { get; private set; }
+		public static Brush Black { get; private set; }
 	}
 }
