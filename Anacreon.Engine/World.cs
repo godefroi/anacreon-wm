@@ -30,5 +30,7 @@ namespace Anacreon.Engine
 		public Defenses Defenses { get; set; }
 
 		public Troops Troops { get; set; }
+
+		public string FlavorText { get; set; }
 	}
 }
