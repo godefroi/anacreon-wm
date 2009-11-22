@@ -29,6 +29,12 @@ namespace Anacreon.Mobile
 			Controls.Add(mc);
 
 			mc.Dock = DockStyle.Fill;
+
+			mc.WorldSelected += (s, e) =>
+				{
+					using( var wf = new WorldForm(e.World) )
+						wf.ShowDialog();
+				};
 		}
 
 		private void MainForm_KeyDown(object sender, KeyEventArgs e)

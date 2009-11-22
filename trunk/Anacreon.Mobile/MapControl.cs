@@ -11,8 +11,10 @@ namespace Anacreon.Mobile
 {
 	public partial class MapControl : UserControl
 	{
+		MenuItem  m_item_selworld;
 		MenuItem  m_item_probe;
 		MenuItem  m_item_csep;
+		MenuItem  m_item_tsep;
 		MenuItem  m_item_cancel;
 		Image     m_off_img;
 		Graphics  m_off_g;
@@ -58,10 +60,13 @@ namespace Anacreon.Mobile
 					DrawY = (int)Math.Ceiling(m_off_g.ClipBounds.Height / (float)CharacterSize.Height);
 				};
 
-			m_mapsize     = new Size(((Universe.Sectors.GetLength(0) * 3) + 2) * CharacterSize.Width, (Universe.Sectors.GetLength(1) + 2) * CharacterSize.Height);
-			m_item_probe  = CreateMenuItem("Send Probe", Menu_SendProbe);
-			m_item_csep   = CreateMenuItem("-",          null);
-			m_item_cancel = CreateMenuItem("Cancel",     null);
+			m_mapsize = new Size(((Universe.Sectors.GetLength(0) * 3) + 2) * CharacterSize.Width, (Universe.Sectors.GetLength(1) + 2) * CharacterSize.Height);
+
+			m_item_selworld = CreateMenuItem("Select World", Menu_SelectWorld);
+			m_item_probe    = CreateMenuItem("Send Probe",   Menu_SendProbe);
+			m_item_tsep     = CreateMenuItem("-",            null);
+			m_item_csep     = CreateMenuItem("-",            null);
+			m_item_cancel   = CreateMenuItem("Cancel",       null);
 
 			KeyDown += (s, e) =>
 				{
@@ -72,6 +77,8 @@ namespace Anacreon.Mobile
 					}
 				};
 		}
+
+		public event EventHandler<WorldSelectedEventArgs> WorldSelected;
 
 		protected Universe Universe { get; private set; }
 
@@ -90,6 +97,12 @@ namespace Anacreon.Mobile
 		private int DrawX { get; set; }
 
 		private int DrawY { get; set; }
+
+		protected virtual void OnWorldSelected(WorldSelectedEventArgs e)
+		{
+			if( WorldSelected != null )
+				WorldSelected(this, e);
+		}
 
 		protected override void OnPaint(PaintEventArgs e)
 		{
@@ -248,7 +261,7 @@ namespace Anacreon.Mobile
 					var new_sel = new Point(sel_x, sel_y);
 
 					if( new_sel == SelectedSector )
-						ShowContextMenu(new Point(e.X, e.Y));
+						ShowContextMenu(new Point(e.X, e.Y), Universe.Sectors[sel_x,sel_y]);
 					else
 						SelectedSector = new_sel;
 				}
@@ -262,9 +275,30 @@ namespace Anacreon.Mobile
 			// TODO: implement this
 		}
 
-		private void ShowContextMenu(Point where)
+		private void Menu_SelectWorld(object sender, EventArgs e)
+		{
+			if( !SelectedSector.HasValue )
+				return;
+
+			var x = SelectedSector.Value.X;
+			var y = SelectedSector.Value.Y;
+			var w = Universe.Sectors[x,y].Object as World;
+
+			if( w == null )
+				return;
+
+			OnWorldSelected(new WorldSelectedEventArgs(x, y, w));
+		}
+
+		private void ShowContextMenu(Point where, Sector s)
 		{
 			ContextMenu.MenuItems.Clear();
+
+			if( s.Object != null && s.Object.Type == SpaceObjectType.World )
+			{
+				ContextMenu.MenuItems.Add(m_item_selworld);
+				ContextMenu.MenuItems.Add(m_item_tsep);
+			}
 
 			ContextMenu.MenuItems.Add(m_item_probe);
 			ContextMenu.MenuItems.Add(m_item_csep);
