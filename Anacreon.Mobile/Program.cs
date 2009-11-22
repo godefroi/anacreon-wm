@@ -45,7 +45,50 @@ namespace Anacreon.Mobile
 				sw.WriteLine("{0} sectors in {1}ms", c, w.ElapsedMilliseconds);
 			}*/
 
-			System.Windows.Forms.Application.Run(new MainForm());
+			var world = new Anacreon.Engine.World()
+			{
+				Class      = "Class j",
+				Technology = "bio-tech",
+				Population = "36.26 billion",
+				Efficiency = 75,
+				Ambrosia   = false,
+				Revolution = 0,
+				WorldType  = Anacreon.Engine.WorldType.Capitol,
+				Supplies   = new Anacreon.Engine.Supplies()
+				{
+					Ambrosia  = 0,
+					Chemicals = 3483,
+					Metals    = 6384,
+					Food      = 2176,
+					Trillium  = 2323,
+				},
+				Ships      = new Anacreon.Engine.Ships()
+				{
+					Fighters       = 3730,
+					HunterKillers  = 0,
+					Jumpships      = 2728,
+					JumpTransports = 1111,
+					Penetrators    = 463,
+					Starships      = 0,
+					Transports     = 1715,
+				},
+				Troops     = new Anacreon.Engine.Troops()
+				{
+					Men    = 5115,
+					Ninjas = 0,
+				},
+				Defenses   = new Anacreon.Engine.Defenses()
+				{
+					LAM               = 0,
+					DefenseSatellites = 0,
+					GDM               = 3073,
+					IonCannons        = 939
+				},
+				FlavorText = "Only by defeating Arronax will you be able to expand your empire.",
+			};
+
+			//System.Windows.Forms.Application.Run(new MainForm());
+			System.Windows.Forms.Application.Run(new WorldForm(world));
 		}
 
 		public static Anacreon.Engine.Universe CreateUniverse()
