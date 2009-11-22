@@ -18,7 +18,8 @@ namespace Anacreon.Mobile
 		{
 			var universe = new Anacreon.Engine.Universe(45, 30)
 			{
-				HomeSector = new Anacreon.Engine.Coordinate(2, 2),
+				HomeSector  = new Anacreon.Engine.Coordinate(2, 2),
+				HumanPlayer = new Anacreon.Engine.Player(),
 			};
 
 			// this block is so I can see how close stuff is
@@ -174,8 +175,11 @@ namespace Anacreon.Mobile
 			universe.Sectors[31, 17].Nebula = true;
 			universe.Sectors[32, 17].Nebula = true;
 
+			universe.Sectors[02, 02].Probed = true;
+
 			universe.Sectors[02, 02].Object = new Anacreon.Engine.World()
 			{
+				Owner      = universe.HumanPlayer,
 				Class      = "Class j",
 				Technology = "bio-tech",
 				Population = "36.26 billion",
