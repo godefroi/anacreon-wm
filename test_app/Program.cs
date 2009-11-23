@@ -8,6 +8,14 @@ namespace test_app
 	{
 		static void Main(string[] args)
 		{
+			var c = '►';
+
+			for( var i = 9650; i < 9670; i++ )
+				Console.WriteLine("{0}: {1}", i, (char)i);
+		}
+
+		private static void TestGrid()
+		{
 			var home_coord_x = 0;
 			var home_coord_y = 0;
 
@@ -33,7 +41,7 @@ namespace test_app
 				}
 			}
 
-			Console.CursorTop  = home_coord_y;
+			Console.CursorTop = home_coord_y;
 			Console.CursorLeft = home_coord_x;
 			Console.Write('X');
 
