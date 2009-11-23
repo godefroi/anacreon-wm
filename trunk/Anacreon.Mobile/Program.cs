@@ -220,6 +220,16 @@ namespace Anacreon.Mobile
 				FlavorText = "Only by defeating Arronax will you be able to expand your empire.",
 			};
 
+			universe.Sectors[2,2].Fleets.Add(new Anacreon.Engine.Fleet()
+				{
+					Owner = universe.HumanPlayer,
+				});
+
+			universe.Sectors[2,2].Fleets.Add(new Anacreon.Engine.Fleet()
+				{
+					Owner = null,
+				});
+
 			return universe;
 		}
 
