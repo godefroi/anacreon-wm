@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Anacreon.Engine
 {
@@ -7,6 +8,7 @@ namespace Anacreon.Engine
 		public Sector()
 		{
 			Probed = false;
+			Fleets = new List<Fleet>();
 		}
 
 		public bool Nebula { get; set; }
@@ -14,5 +16,7 @@ namespace Anacreon.Engine
 		public bool Probed { get; set; }
 
 		public SpaceObject Object { get; set; }
+
+		public List<Fleet> Fleets { get; private set; }
 	}
 }
