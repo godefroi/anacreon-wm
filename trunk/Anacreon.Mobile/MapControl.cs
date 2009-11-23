@@ -371,6 +371,21 @@ namespace Anacreon.Mobile
 				ret[2].Character = '▒'; ret[2].Brush = Brushes.Purple;
 			}
 
+			// handle fleets
+			if( s.Fleets.Any(f => f.Owner == u.HumanPlayer) )
+			{
+				// at least one friendly fleet
+				ret[0].Character = '►';
+				ret[0].Brush     = Brushes.White;
+			}
+
+			if( s.Fleets.Any(f => f.Owner != u.HumanPlayer) )
+			{
+				// at least one unfriendly fleet
+				ret[2].Character = '◄';
+				ret[2].Brush     = Brushes.Gray;
+			}
+
 			// finally, handle objects
 			if( s.Object != null && (s.Probed || !s.Nebula) )
 			{
