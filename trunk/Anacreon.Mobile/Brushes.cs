@@ -7,9 +7,11 @@ namespace Anacreon.Mobile
 	{
 		static Brushes()
 		{
-			Gray   = new SolidBrush(Color.Gray);
+			//Gray   = new SolidBrush(Color.LightGray);
+			Gray   = new SolidBrush(Color.FromArgb(192, 192, 192));
 			Purple = new SolidBrush(Color.Purple);
-			Red    = new SolidBrush(Color.Red);
+			//Red    = new SolidBrush(Color.Red);
+			Red    = new SolidBrush(Color.FromArgb(128, 0, 0));
 			White  = new SolidBrush(Color.White);
 			Black  = new SolidBrush(Color.Black);
 		}
