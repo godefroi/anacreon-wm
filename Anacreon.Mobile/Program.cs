@@ -9,9 +9,11 @@ namespace Anacreon.Mobile
 		{
 			//DrawTextMap();
 
-			System.Windows.Forms.Application.Run(new MainForm());
+			//System.Windows.Forms.Application.Run(new MainForm());
 
 			//System.Windows.Forms.Application.Run(new WorldForm(world));
+
+			System.Windows.Forms.Application.Run(new FleetTransferForm());
 		}
 
 		public static Anacreon.Engine.Universe CreateUniverse()
