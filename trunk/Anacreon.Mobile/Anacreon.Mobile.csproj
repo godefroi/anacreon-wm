@@ -65,11 +65,23 @@
     <Compile Include="DialogForm.Designer.cs">
       <DependentUpon>DialogForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FleetTransferForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FleetTransferForm.Designer.cs">
+      <DependentUpon>FleetTransferForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ItemControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ItemControl.Designer.cs">
       <DependentUpon>ItemControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ItemTransferControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ItemTransferControl.Designer.cs">
+      <DependentUpon>ItemTransferControl.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -88,8 +100,14 @@
     <EmbeddedResource Include="DialogForm.resx">
       <DependentUpon>DialogForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FleetTransferForm.resx">
+      <DependentUpon>FleetTransferForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ItemControl.resx">
       <DependentUpon>ItemControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ItemTransferControl.resx">
+      <DependentUpon>ItemTransferControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -102,6 +120,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="SimpleButton.resx">
+      <DependentUpon>SimpleButton.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WorldForm.resx">
       <DependentUpon>WorldForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -110,6 +131,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SectorChar.cs" />
+    <Compile Include="SimpleButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SimpleButton.Designer.cs">
+      <DependentUpon>SimpleButton.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorldForm.cs">
       <SubType>Form</SubType>
     </Compile>
