@@ -6,5 +6,6 @@ namespace Anacreon.Engine
 	{
 		public abstract SpaceObjectType Type { get; }
 
+		public Player Owner { get; set; }
 	}
 }

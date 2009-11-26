@@ -61,10 +61,7 @@
     <Compile Include="Fleet.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerState.cs" />
-    <Compile Include="Ships.cs" />
     <Compile Include="SpaceObjectType.cs" />
-    <Compile Include="Supplies.cs" />
-    <Compile Include="Troops.cs" />
     <Compile Include="World.cs" />
     <Compile Include="WorldType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

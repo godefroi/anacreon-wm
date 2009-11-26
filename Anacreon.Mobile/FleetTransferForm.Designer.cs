@@ -30,49 +30,53 @@
 		{
 			this.label1 = new System.Windows.Forms.Label();
 			this.itemTransferControl14 = new Anacreon.Mobile.ItemTransferControl();
-			this.itemTransferControl13 = new Anacreon.Mobile.ItemTransferControl();
-			this.itemTransferControl12 = new Anacreon.Mobile.ItemTransferControl();
-			this.itemTransferControl11 = new Anacreon.Mobile.ItemTransferControl();
-			this.itemTransferControl10 = new Anacreon.Mobile.ItemTransferControl();
-			this.itemTransferControl9 = new Anacreon.Mobile.ItemTransferControl();
-			this.itemTransferControl8 = new Anacreon.Mobile.ItemTransferControl();
-			this.itemTransferControl7 = new Anacreon.Mobile.ItemTransferControl();
-			this.itemTransferControl6 = new Anacreon.Mobile.ItemTransferControl();
-			this.itemTransferControl5 = new Anacreon.Mobile.ItemTransferControl();
-			this.itemTransferControl4 = new Anacreon.Mobile.ItemTransferControl();
-			this.itemTransferControl3 = new Anacreon.Mobile.ItemTransferControl();
-			this.itemTransferControl2 = new Anacreon.Mobile.ItemTransferControl();
-			this.itemTransferControl1 = new Anacreon.Mobile.ItemTransferControl();
+			this.CheItem = new Anacreon.Mobile.ItemTransferControl();
+			this.TriItem = new Anacreon.Mobile.ItemTransferControl();
+			this.MetItem = new Anacreon.Mobile.ItemTransferControl();
+			this.AmbItem = new Anacreon.Mobile.ItemTransferControl();
+			this.NnjItem = new Anacreon.Mobile.ItemTransferControl();
+			this.MenItem = new Anacreon.Mobile.ItemTransferControl();
+			this.StrItem = new Anacreon.Mobile.ItemTransferControl();
+			this.HkrItem = new Anacreon.Mobile.ItemTransferControl();
+			this.JmpItem = new Anacreon.Mobile.ItemTransferControl();
+			this.JtnItem = new Anacreon.Mobile.ItemTransferControl();
+			this.PenItem = new Anacreon.Mobile.ItemTransferControl();
+			this.TrnItem = new Anacreon.Mobile.ItemTransferControl();
+			this.FgtItem = new Anacreon.Mobile.ItemTransferControl();
 			this.DescriptionLabel = new System.Windows.Forms.Label();
-			this.simpleButton1 = new Anacreon.Mobile.SimpleButton();
-			this.simpleButton2 = new Anacreon.Mobile.SimpleButton();
-			this.simpleButton3 = new Anacreon.Mobile.SimpleButton();
-			this.simpleButton4 = new Anacreon.Mobile.SimpleButton();
+			this.SmallPlus = new Anacreon.Mobile.SimpleButton();
+			this.LargePlus = new Anacreon.Mobile.SimpleButton();
+			this.LargeMinus = new Anacreon.Mobile.SimpleButton();
+			this.SmallMinus = new Anacreon.Mobile.SimpleButton();
+			this.SupItem = new Anacreon.Mobile.ItemTransferControl();
+			this.TransferSlider = new System.Windows.Forms.TrackBar();
 			this.DialogPanel.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// DialogPanel
 			// 
-			this.DialogPanel.Controls.Add(this.simpleButton3);
-			this.DialogPanel.Controls.Add(this.simpleButton4);
-			this.DialogPanel.Controls.Add(this.simpleButton2);
-			this.DialogPanel.Controls.Add(this.simpleButton1);
+			this.DialogPanel.Controls.Add(this.TransferSlider);
+			this.DialogPanel.Controls.Add(this.SupItem);
+			this.DialogPanel.Controls.Add(this.LargeMinus);
+			this.DialogPanel.Controls.Add(this.SmallMinus);
+			this.DialogPanel.Controls.Add(this.LargePlus);
+			this.DialogPanel.Controls.Add(this.SmallPlus);
 			this.DialogPanel.Controls.Add(this.DescriptionLabel);
 			this.DialogPanel.Controls.Add(this.label1);
 			this.DialogPanel.Controls.Add(this.itemTransferControl14);
-			this.DialogPanel.Controls.Add(this.itemTransferControl13);
-			this.DialogPanel.Controls.Add(this.itemTransferControl12);
-			this.DialogPanel.Controls.Add(this.itemTransferControl11);
-			this.DialogPanel.Controls.Add(this.itemTransferControl10);
-			this.DialogPanel.Controls.Add(this.itemTransferControl9);
-			this.DialogPanel.Controls.Add(this.itemTransferControl8);
-			this.DialogPanel.Controls.Add(this.itemTransferControl7);
-			this.DialogPanel.Controls.Add(this.itemTransferControl6);
-			this.DialogPanel.Controls.Add(this.itemTransferControl5);
-			this.DialogPanel.Controls.Add(this.itemTransferControl4);
-			this.DialogPanel.Controls.Add(this.itemTransferControl3);
-			this.DialogPanel.Controls.Add(this.itemTransferControl2);
-			this.DialogPanel.Controls.Add(this.itemTransferControl1);
+			this.DialogPanel.Controls.Add(this.CheItem);
+			this.DialogPanel.Controls.Add(this.TriItem);
+			this.DialogPanel.Controls.Add(this.MetItem);
+			this.DialogPanel.Controls.Add(this.AmbItem);
+			this.DialogPanel.Controls.Add(this.NnjItem);
+			this.DialogPanel.Controls.Add(this.MenItem);
+			this.DialogPanel.Controls.Add(this.StrItem);
+			this.DialogPanel.Controls.Add(this.HkrItem);
+			this.DialogPanel.Controls.Add(this.JmpItem);
+			this.DialogPanel.Controls.Add(this.JtnItem);
+			this.DialogPanel.Controls.Add(this.PenItem);
+			this.DialogPanel.Controls.Add(this.TrnItem);
+			this.DialogPanel.Controls.Add(this.FgtItem);
 			this.DialogPanel.Size = new System.Drawing.Size(448, 716);
 			// 
 			// label1
@@ -88,157 +92,157 @@
 			// 
 			// itemTransferControl14
 			// 
-			this.itemTransferControl14.BottomValue = "9999";
+			this.itemTransferControl14.BottomValue = 9999;
 			this.itemTransferControl14.Label = "cargo";
 			this.itemTransferControl14.Location = new System.Drawing.Point(360, 336);
 			this.itemTransferControl14.Name = "itemTransferControl14";
 			this.itemTransferControl14.Selected = false;
 			this.itemTransferControl14.Size = new System.Drawing.Size(80, 72);
 			this.itemTransferControl14.TabIndex = 28;
-			this.itemTransferControl14.TopValue = "9999";
+			this.itemTransferControl14.TopValue = 9999;
 			// 
-			// itemTransferControl13
+			// CheItem
 			// 
-			this.itemTransferControl13.BottomValue = "9999";
-			this.itemTransferControl13.Label = "che";
-			this.itemTransferControl13.Location = new System.Drawing.Point(232, 248);
-			this.itemTransferControl13.Name = "itemTransferControl13";
-			this.itemTransferControl13.Selected = false;
-			this.itemTransferControl13.Size = new System.Drawing.Size(64, 72);
-			this.itemTransferControl13.TabIndex = 27;
-			this.itemTransferControl13.TopValue = "9999";
+			this.CheItem.BottomValue = 9999;
+			this.CheItem.Label = "che";
+			this.CheItem.Location = new System.Drawing.Point(104, 248);
+			this.CheItem.Name = "CheItem";
+			this.CheItem.Selected = false;
+			this.CheItem.Size = new System.Drawing.Size(64, 72);
+			this.CheItem.TabIndex = 27;
+			this.CheItem.TopValue = 9999;
 			// 
-			// itemTransferControl12
+			// TriItem
 			// 
-			this.itemTransferControl12.BottomValue = "9999";
-			this.itemTransferControl12.Label = "tri";
-			this.itemTransferControl12.Location = new System.Drawing.Point(376, 248);
-			this.itemTransferControl12.Name = "itemTransferControl12";
-			this.itemTransferControl12.Selected = false;
-			this.itemTransferControl12.Size = new System.Drawing.Size(64, 72);
-			this.itemTransferControl12.TabIndex = 26;
-			this.itemTransferControl12.TopValue = "9999";
+			this.TriItem.BottomValue = 9999;
+			this.TriItem.Label = "tri";
+			this.TriItem.Location = new System.Drawing.Point(368, 248);
+			this.TriItem.Name = "TriItem";
+			this.TriItem.Selected = false;
+			this.TriItem.Size = new System.Drawing.Size(64, 72);
+			this.TriItem.TabIndex = 26;
+			this.TriItem.TopValue = 9999;
 			// 
-			// itemTransferControl11
+			// MetItem
 			// 
-			this.itemTransferControl11.BottomValue = "9999";
-			this.itemTransferControl11.Label = "met";
-			this.itemTransferControl11.Location = new System.Drawing.Point(304, 248);
-			this.itemTransferControl11.Name = "itemTransferControl11";
-			this.itemTransferControl11.Selected = false;
-			this.itemTransferControl11.Size = new System.Drawing.Size(64, 72);
-			this.itemTransferControl11.TabIndex = 25;
-			this.itemTransferControl11.TopValue = "9999";
+			this.MetItem.BottomValue = 9999;
+			this.MetItem.Label = "met";
+			this.MetItem.Location = new System.Drawing.Point(192, 248);
+			this.MetItem.Name = "MetItem";
+			this.MetItem.Selected = false;
+			this.MetItem.Size = new System.Drawing.Size(64, 72);
+			this.MetItem.TabIndex = 25;
+			this.MetItem.TopValue = 9999;
 			// 
-			// itemTransferControl10
+			// AmbItem
 			// 
-			this.itemTransferControl10.BottomValue = "9999";
-			this.itemTransferControl10.Label = "amb";
-			this.itemTransferControl10.Location = new System.Drawing.Point(160, 248);
-			this.itemTransferControl10.Name = "itemTransferControl10";
-			this.itemTransferControl10.Selected = false;
-			this.itemTransferControl10.Size = new System.Drawing.Size(64, 72);
-			this.itemTransferControl10.TabIndex = 24;
-			this.itemTransferControl10.TopValue = "9999";
+			this.AmbItem.BottomValue = 9999;
+			this.AmbItem.Label = "amb";
+			this.AmbItem.Location = new System.Drawing.Point(16, 248);
+			this.AmbItem.Name = "AmbItem";
+			this.AmbItem.Selected = false;
+			this.AmbItem.Size = new System.Drawing.Size(64, 72);
+			this.AmbItem.TabIndex = 24;
+			this.AmbItem.TopValue = 9999;
 			// 
-			// itemTransferControl9
+			// NnjItem
 			// 
-			this.itemTransferControl9.BottomValue = "9999";
-			this.itemTransferControl9.Label = "nnj";
-			this.itemTransferControl9.Location = new System.Drawing.Point(88, 248);
-			this.itemTransferControl9.Name = "itemTransferControl9";
-			this.itemTransferControl9.Selected = false;
-			this.itemTransferControl9.Size = new System.Drawing.Size(64, 72);
-			this.itemTransferControl9.TabIndex = 23;
-			this.itemTransferControl9.TopValue = "9999";
+			this.NnjItem.BottomValue = 9999;
+			this.NnjItem.Label = "nnj";
+			this.NnjItem.Location = new System.Drawing.Point(368, 160);
+			this.NnjItem.Name = "NnjItem";
+			this.NnjItem.Selected = false;
+			this.NnjItem.Size = new System.Drawing.Size(64, 72);
+			this.NnjItem.TabIndex = 23;
+			this.NnjItem.TopValue = 9999;
 			// 
-			// itemTransferControl8
+			// MenItem
 			// 
-			this.itemTransferControl8.BottomValue = "9999";
-			this.itemTransferControl8.Label = "men";
-			this.itemTransferControl8.Location = new System.Drawing.Point(16, 248);
-			this.itemTransferControl8.Name = "itemTransferControl8";
-			this.itemTransferControl8.Selected = false;
-			this.itemTransferControl8.Size = new System.Drawing.Size(64, 72);
-			this.itemTransferControl8.TabIndex = 22;
-			this.itemTransferControl8.TopValue = "9999";
+			this.MenItem.BottomValue = 9999;
+			this.MenItem.Label = "men";
+			this.MenItem.Location = new System.Drawing.Point(280, 160);
+			this.MenItem.Name = "MenItem";
+			this.MenItem.Selected = false;
+			this.MenItem.Size = new System.Drawing.Size(64, 72);
+			this.MenItem.TabIndex = 22;
+			this.MenItem.TopValue = 9999;
 			// 
-			// itemTransferControl7
+			// StrItem
 			// 
-			this.itemTransferControl7.BottomValue = "9999";
-			this.itemTransferControl7.Label = "str";
-			this.itemTransferControl7.Location = new System.Drawing.Point(184, 160);
-			this.itemTransferControl7.Name = "itemTransferControl7";
-			this.itemTransferControl7.Selected = false;
-			this.itemTransferControl7.Size = new System.Drawing.Size(64, 72);
-			this.itemTransferControl7.TabIndex = 21;
-			this.itemTransferControl7.TopValue = "9999";
+			this.StrItem.BottomValue = 9999;
+			this.StrItem.Label = "str";
+			this.StrItem.Location = new System.Drawing.Point(104, 160);
+			this.StrItem.Name = "StrItem";
+			this.StrItem.Selected = false;
+			this.StrItem.Size = new System.Drawing.Size(64, 72);
+			this.StrItem.TabIndex = 21;
+			this.StrItem.TopValue = 9999;
 			// 
-			// itemTransferControl6
+			// HkrItem
 			// 
-			this.itemTransferControl6.BottomValue = "9999";
-			this.itemTransferControl6.Label = "hkr";
-			this.itemTransferControl6.Location = new System.Drawing.Point(136, 72);
-			this.itemTransferControl6.Name = "itemTransferControl6";
-			this.itemTransferControl6.Selected = false;
-			this.itemTransferControl6.Size = new System.Drawing.Size(64, 72);
-			this.itemTransferControl6.TabIndex = 20;
-			this.itemTransferControl6.TopValue = "9999";
+			this.HkrItem.BottomValue = 9999;
+			this.HkrItem.Label = "hkr";
+			this.HkrItem.Location = new System.Drawing.Point(136, 72);
+			this.HkrItem.Name = "HkrItem";
+			this.HkrItem.Selected = false;
+			this.HkrItem.Size = new System.Drawing.Size(64, 72);
+			this.HkrItem.TabIndex = 20;
+			this.HkrItem.TopValue = 9999;
 			// 
-			// itemTransferControl5
+			// JmpItem
 			// 
-			this.itemTransferControl5.BottomValue = "9999";
-			this.itemTransferControl5.Label = "jmp";
-			this.itemTransferControl5.Location = new System.Drawing.Point(248, 72);
-			this.itemTransferControl5.Name = "itemTransferControl5";
-			this.itemTransferControl5.Selected = false;
-			this.itemTransferControl5.Size = new System.Drawing.Size(64, 72);
-			this.itemTransferControl5.TabIndex = 19;
-			this.itemTransferControl5.TopValue = "9999";
+			this.JmpItem.BottomValue = 9999;
+			this.JmpItem.Label = "jmp";
+			this.JmpItem.Location = new System.Drawing.Point(248, 72);
+			this.JmpItem.Name = "JmpItem";
+			this.JmpItem.Selected = false;
+			this.JmpItem.Size = new System.Drawing.Size(64, 72);
+			this.JmpItem.TabIndex = 19;
+			this.JmpItem.TopValue = 9999;
 			// 
-			// itemTransferControl4
+			// JtnItem
 			// 
-			this.itemTransferControl4.BottomValue = "9999";
-			this.itemTransferControl4.Label = "jtn";
-			this.itemTransferControl4.Location = new System.Drawing.Point(360, 72);
-			this.itemTransferControl4.Name = "itemTransferControl4";
-			this.itemTransferControl4.Selected = false;
-			this.itemTransferControl4.Size = new System.Drawing.Size(64, 72);
-			this.itemTransferControl4.TabIndex = 18;
-			this.itemTransferControl4.TopValue = "9999";
+			this.JtnItem.BottomValue = 9999;
+			this.JtnItem.Label = "jtn";
+			this.JtnItem.Location = new System.Drawing.Point(360, 72);
+			this.JtnItem.Name = "JtnItem";
+			this.JtnItem.Selected = false;
+			this.JtnItem.Size = new System.Drawing.Size(64, 72);
+			this.JtnItem.TabIndex = 18;
+			this.JtnItem.TopValue = 9999;
 			// 
-			// itemTransferControl3
+			// PenItem
 			// 
-			this.itemTransferControl3.BottomValue = "9999";
-			this.itemTransferControl3.Label = "pen";
-			this.itemTransferControl3.Location = new System.Drawing.Point(72, 160);
-			this.itemTransferControl3.Name = "itemTransferControl3";
-			this.itemTransferControl3.Selected = false;
-			this.itemTransferControl3.Size = new System.Drawing.Size(64, 72);
-			this.itemTransferControl3.TabIndex = 17;
-			this.itemTransferControl3.TopValue = "9999";
+			this.PenItem.BottomValue = 9999;
+			this.PenItem.Label = "pen";
+			this.PenItem.Location = new System.Drawing.Point(16, 160);
+			this.PenItem.Name = "PenItem";
+			this.PenItem.Selected = false;
+			this.PenItem.Size = new System.Drawing.Size(64, 72);
+			this.PenItem.TabIndex = 17;
+			this.PenItem.TopValue = 9999;
 			// 
-			// itemTransferControl2
+			// TrnItem
 			// 
-			this.itemTransferControl2.BottomValue = "9999";
-			this.itemTransferControl2.Label = "trn";
-			this.itemTransferControl2.Location = new System.Drawing.Point(304, 160);
-			this.itemTransferControl2.Name = "itemTransferControl2";
-			this.itemTransferControl2.Selected = false;
-			this.itemTransferControl2.Size = new System.Drawing.Size(64, 72);
-			this.itemTransferControl2.TabIndex = 16;
-			this.itemTransferControl2.TopValue = "9999";
+			this.TrnItem.BottomValue = 9999;
+			this.TrnItem.Label = "trn";
+			this.TrnItem.Location = new System.Drawing.Point(192, 160);
+			this.TrnItem.Name = "TrnItem";
+			this.TrnItem.Selected = false;
+			this.TrnItem.Size = new System.Drawing.Size(64, 72);
+			this.TrnItem.TabIndex = 16;
+			this.TrnItem.TopValue = 9999;
 			// 
-			// itemTransferControl1
+			// FgtItem
 			// 
-			this.itemTransferControl1.BottomValue = "9999";
-			this.itemTransferControl1.Label = "fgt";
-			this.itemTransferControl1.Location = new System.Drawing.Point(24, 72);
-			this.itemTransferControl1.Name = "itemTransferControl1";
-			this.itemTransferControl1.Selected = false;
-			this.itemTransferControl1.Size = new System.Drawing.Size(64, 72);
-			this.itemTransferControl1.TabIndex = 14;
-			this.itemTransferControl1.TopValue = "9999";
+			this.FgtItem.BottomValue = 9999;
+			this.FgtItem.Label = "fgt";
+			this.FgtItem.Location = new System.Drawing.Point(24, 72);
+			this.FgtItem.Name = "FgtItem";
+			this.FgtItem.Selected = false;
+			this.FgtItem.Size = new System.Drawing.Size(64, 72);
+			this.FgtItem.TabIndex = 14;
+			this.FgtItem.TopValue = 9999;
 			// 
 			// DescriptionLabel
 			// 
@@ -249,53 +253,74 @@
 			this.DescriptionLabel.Size = new System.Drawing.Size(432, 48);
 			this.DescriptionLabel.Text = "label2\r\nlabel2\r\n";
 			// 
-			// simpleButton1
+			// SmallPlus
 			// 
-			this.simpleButton1.BackColor = System.Drawing.Color.DarkBlue;
-			this.simpleButton1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.simpleButton1.ButtonText = "+";
-			this.simpleButton1.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Bold);
-			this.simpleButton1.ForeColor = System.Drawing.Color.LightGray;
-			this.simpleButton1.Location = new System.Drawing.Point(232, 648);
-			this.simpleButton1.Name = "simpleButton1";
-			this.simpleButton1.Size = new System.Drawing.Size(96, 56);
-			this.simpleButton1.TabIndex = 29;
+			this.SmallPlus.BackColor = System.Drawing.Color.DarkBlue;
+			this.SmallPlus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.SmallPlus.ButtonText = "+";
+			this.SmallPlus.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Bold);
+			this.SmallPlus.ForeColor = System.Drawing.Color.LightGray;
+			this.SmallPlus.Location = new System.Drawing.Point(232, 648);
+			this.SmallPlus.Name = "SmallPlus";
+			this.SmallPlus.Size = new System.Drawing.Size(96, 56);
+			this.SmallPlus.TabIndex = 29;
 			// 
-			// simpleButton2
+			// LargePlus
 			// 
-			this.simpleButton2.BackColor = System.Drawing.Color.DarkBlue;
-			this.simpleButton2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.simpleButton2.ButtonText = "++";
-			this.simpleButton2.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Bold);
-			this.simpleButton2.ForeColor = System.Drawing.Color.LightGray;
-			this.simpleButton2.Location = new System.Drawing.Point(344, 648);
-			this.simpleButton2.Name = "simpleButton2";
-			this.simpleButton2.Size = new System.Drawing.Size(96, 56);
-			this.simpleButton2.TabIndex = 32;
+			this.LargePlus.BackColor = System.Drawing.Color.DarkBlue;
+			this.LargePlus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.LargePlus.ButtonText = "++";
+			this.LargePlus.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Bold);
+			this.LargePlus.ForeColor = System.Drawing.Color.LightGray;
+			this.LargePlus.Location = new System.Drawing.Point(344, 648);
+			this.LargePlus.Name = "LargePlus";
+			this.LargePlus.Size = new System.Drawing.Size(96, 56);
+			this.LargePlus.TabIndex = 32;
 			// 
-			// simpleButton3
+			// LargeMinus
 			// 
-			this.simpleButton3.BackColor = System.Drawing.Color.DarkBlue;
-			this.simpleButton3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.simpleButton3.ButtonText = "--";
-			this.simpleButton3.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Bold);
-			this.simpleButton3.ForeColor = System.Drawing.Color.LightGray;
-			this.simpleButton3.Location = new System.Drawing.Point(8, 648);
-			this.simpleButton3.Name = "simpleButton3";
-			this.simpleButton3.Size = new System.Drawing.Size(96, 56);
-			this.simpleButton3.TabIndex = 34;
+			this.LargeMinus.BackColor = System.Drawing.Color.DarkBlue;
+			this.LargeMinus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.LargeMinus.ButtonText = "--";
+			this.LargeMinus.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Bold);
+			this.LargeMinus.ForeColor = System.Drawing.Color.LightGray;
+			this.LargeMinus.Location = new System.Drawing.Point(8, 648);
+			this.LargeMinus.Name = "LargeMinus";
+			this.LargeMinus.Size = new System.Drawing.Size(96, 56);
+			this.LargeMinus.TabIndex = 34;
 			// 
-			// simpleButton4
+			// SmallMinus
 			// 
-			this.simpleButton4.BackColor = System.Drawing.Color.DarkBlue;
-			this.simpleButton4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.simpleButton4.ButtonText = "-";
-			this.simpleButton4.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Bold);
-			this.simpleButton4.ForeColor = System.Drawing.Color.LightGray;
-			this.simpleButton4.Location = new System.Drawing.Point(120, 648);
-			this.simpleButton4.Name = "simpleButton4";
-			this.simpleButton4.Size = new System.Drawing.Size(96, 56);
-			this.simpleButton4.TabIndex = 33;
+			this.SmallMinus.BackColor = System.Drawing.Color.DarkBlue;
+			this.SmallMinus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.SmallMinus.ButtonText = "-";
+			this.SmallMinus.Font = new System.Drawing.Font("Courier New", 24F, System.Drawing.FontStyle.Bold);
+			this.SmallMinus.ForeColor = System.Drawing.Color.LightGray;
+			this.SmallMinus.Location = new System.Drawing.Point(120, 648);
+			this.SmallMinus.Name = "SmallMinus";
+			this.SmallMinus.Size = new System.Drawing.Size(96, 56);
+			this.SmallMinus.TabIndex = 33;
+			// 
+			// SupItem
+			// 
+			this.SupItem.BottomValue = 9999;
+			this.SupItem.Label = "sup";
+			this.SupItem.Location = new System.Drawing.Point(280, 248);
+			this.SupItem.Name = "SupItem";
+			this.SupItem.Selected = false;
+			this.SupItem.Size = new System.Drawing.Size(64, 72);
+			this.SupItem.TabIndex = 37;
+			this.SupItem.TopValue = 9999;
+			// 
+			// TransferSlider
+			// 
+			this.TransferSlider.Location = new System.Drawing.Point(8, 576);
+			this.TransferSlider.Maximum = 9999;
+			this.TransferSlider.Name = "TransferSlider";
+			this.TransferSlider.Size = new System.Drawing.Size(432, 60);
+			this.TransferSlider.TabIndex = 40;
+			this.TransferSlider.TickFrequency = 0;
+			this.TransferSlider.TickStyle = System.Windows.Forms.TickStyle.Both;
 			// 
 			// FleetTransferForm
 			// 
@@ -318,24 +343,26 @@
 
 		private System.Windows.Forms.Label label1;
 		private ItemTransferControl itemTransferControl14;
-		private ItemTransferControl itemTransferControl13;
-		private ItemTransferControl itemTransferControl12;
-		private ItemTransferControl itemTransferControl11;
-		private ItemTransferControl itemTransferControl10;
-		private ItemTransferControl itemTransferControl9;
-		private ItemTransferControl itemTransferControl8;
-		private ItemTransferControl itemTransferControl7;
-		private ItemTransferControl itemTransferControl6;
-		private ItemTransferControl itemTransferControl5;
-		private ItemTransferControl itemTransferControl4;
-		private ItemTransferControl itemTransferControl3;
-		private ItemTransferControl itemTransferControl2;
-		private ItemTransferControl itemTransferControl1;
+		private ItemTransferControl CheItem;
+		private ItemTransferControl TriItem;
+		private ItemTransferControl MetItem;
+		private ItemTransferControl AmbItem;
+		private ItemTransferControl NnjItem;
+		private ItemTransferControl MenItem;
+		private ItemTransferControl StrItem;
+		private ItemTransferControl HkrItem;
+		private ItemTransferControl JmpItem;
+		private ItemTransferControl JtnItem;
+		private ItemTransferControl PenItem;
+		private ItemTransferControl TrnItem;
+		private ItemTransferControl FgtItem;
 		private System.Windows.Forms.Label DescriptionLabel;
-		private SimpleButton simpleButton1;
-		private SimpleButton simpleButton3;
-		private SimpleButton simpleButton4;
-		private SimpleButton simpleButton2;
+		private SimpleButton SmallPlus;
+		private SimpleButton LargeMinus;
+		private SimpleButton SmallMinus;
+		private SimpleButton LargePlus;
+		private ItemTransferControl SupItem;
+		private System.Windows.Forms.TrackBar TransferSlider;
 
 	}
 }

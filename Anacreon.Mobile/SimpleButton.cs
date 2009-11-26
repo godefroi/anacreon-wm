@@ -9,6 +9,9 @@ namespace Anacreon.Mobile
 		public SimpleButton()
 		{
 			InitializeComponent();
+
+			MouseDown += InvertColors;
+			MouseUp   += InvertColors;
 		}
 
 		public override Color ForeColor
@@ -39,15 +42,22 @@ namespace Anacreon.Mobile
 
 		protected override void OnPaint(PaintEventArgs e)
 		{
-			//base.OnPaint(e);
-
 			var text_size = e.Graphics.MeasureString(ButtonText, Font);
 			var x_offset  = ((float)Size.Width - text_size.Width) / 2f;
 			var y_offset  = ((float)Size.Height - text_size.Height) / 2f;
 
-			e.Graphics.DrawString(ButtonText, Font, Brushes.Gray, x_offset, y_offset);
+			e.Graphics.Clear(BackColor);
+
+			using( var b = new SolidBrush(ForeColor) )
+				e.Graphics.DrawString(ButtonText, Font, b, x_offset, y_offset);
 		}
 
+		private void InvertColors(object sender, MouseEventArgs e)
+		{
+			var temp = BackColor;
 
+			BackColor = ForeColor;
+			ForeColor = temp;
+		}
 	}
 }

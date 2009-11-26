@@ -12,6 +12,7 @@ namespace Anacreon.Mobile
 	public partial class MapControl : UserControl
 	{
 		MenuItem  m_item_selworld;
+		MenuItem  m_item_depfleet;
 		MenuItem  m_item_probe;
 		MenuItem  m_item_csep;
 		MenuItem  m_item_tsep;
@@ -45,6 +46,7 @@ namespace Anacreon.Mobile
 			m_mapsize = new Size(((Universe.Sectors.GetLength(0) * 3) + 2) * CharacterSize.Width, (Universe.Sectors.GetLength(1) + 2) * CharacterSize.Height);
 
 			m_item_selworld = CreateMenuItem("Select World", Menu_SelectWorld);
+			m_item_depfleet = CreateMenuItem("Deploy Fleet", Menu_DeployFleet);
 			m_item_probe    = CreateMenuItem("Send Probe",   Menu_SendProbe);
 			m_item_tsep     = CreateMenuItem("-",            null);
 			m_item_csep     = CreateMenuItem("-",            null);
@@ -246,6 +248,21 @@ namespace Anacreon.Mobile
 
 			OnWorldSelected(new WorldSelectedEventArgs(x, y, w));
 		}
+		
+		private void Menu_DeployFleet(object sender, EventArgs e)
+		{
+			var world = Universe.Sectors[SelectedSector.Value.X, SelectedSector.Value.Y].Object as World;
+			var fleet = new Fleet();
+
+			using( var tf = new FleetTransferForm(world.Fleet, fleet, string.Format("Ready to deploy a new fleet from the world at {0}", SelectedSector)) )
+			{
+				tf.ShowDialog();
+			}
+
+			Universe.Sectors[SelectedSector.Value.X, SelectedSector.Value.Y].Fleets.Add(fleet);
+
+			Invalidate();
+		}
 
 		private void ContextMenu_Popup(object sender, EventArgs e)
 		{
@@ -258,6 +275,10 @@ namespace Anacreon.Mobile
 				if( s.Object != null && s.Object.Type == SpaceObjectType.World )
 				{
 					ContextMenu.MenuItems.Add(m_item_selworld);
+
+					if( s.Object.Owner == Universe.HumanPlayer )
+						ContextMenu.MenuItems.Add(m_item_depfleet);
+
 					ContextMenu.MenuItems.Add(m_item_tsep);
 				}
 			}
