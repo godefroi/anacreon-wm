@@ -7,13 +7,15 @@ namespace Anacreon.Mobile
 		[MTAThread]
 		static void Main()
 		{
+			var u = CreateUniverse();
+
 			//DrawTextMap();
 
-			//System.Windows.Forms.Application.Run(new MainForm());
+			System.Windows.Forms.Application.Run(new MainForm());
 
 			//System.Windows.Forms.Application.Run(new WorldForm(world));
 
-			System.Windows.Forms.Application.Run(new FleetTransferForm());
+			//System.Windows.Forms.Application.Run(new FleetTransferForm(u.Sectors[2, 2].Fleets[0], new Anacreon.Engine.Fleet(), "transfer"));
 		}
 
 		public static Anacreon.Engine.Universe CreateUniverse()
@@ -189,15 +191,7 @@ namespace Anacreon.Mobile
 				Ambrosia   = false,
 				Revolution = 0,
 				WorldType  = Anacreon.Engine.WorldType.Capitol,
-				Supplies   = new Anacreon.Engine.Supplies()
-				{
-					Ambrosia  = 0,
-					Chemicals = 3483,
-					Metals    = 6384,
-					Food      = 2176,
-					Trillium  = 2323,
-				},
-				Ships      = new Anacreon.Engine.Ships()
+				Fleet      = new Anacreon.Engine.Fleet()
 				{
 					Fighters       = 3730,
 					HunterKillers  = 0,
@@ -206,11 +200,13 @@ namespace Anacreon.Mobile
 					Penetrators    = 463,
 					Starships      = 0,
 					Transports     = 1715,
-				},
-				Troops     = new Anacreon.Engine.Troops()
-				{
-					Men    = 5115,
-					Ninjas = 0,
+					Men            = 5115,
+					Ninjas         = 0,
+					Ambrosia       = 0,
+					Chemicals      = 3483,
+					Metals         = 6384,
+					Supplies           = 2176,
+					Trillium       = 2323,
 				},
 				Defenses   = new Anacreon.Engine.Defenses()
 				{
@@ -222,10 +218,24 @@ namespace Anacreon.Mobile
 				FlavorText = "Only by defeating Arronax will you be able to expand your empire.",
 			};
 
-			universe.Sectors[2,2].Fleets.Add(new Anacreon.Engine.Fleet()
+			/*universe.Sectors[2,2].Fleets.Add(new Anacreon.Engine.Fleet()
 				{
-					Owner = universe.HumanPlayer,
-				});
+					Owner          = universe.HumanPlayer,
+					Fighters       = 3452,
+					HunterKillers  = 432,
+					Jumpships      = 1523,
+					JumpTransports = 1698,
+					Penetrators    = 23,
+					Starships      = 12,
+					Transports     = 2487,
+					Men            = 4287,
+					Ninjas         = 0,
+					Ambrosia       = 0,
+					Chemicals      = 3289,
+					Metals         = 4929,
+					Supplies           = 1294,
+					Trillium       = 2383,
+				});*/
 
 			universe.Sectors[2,2].Fleets.Add(new Anacreon.Engine.Fleet()
 				{

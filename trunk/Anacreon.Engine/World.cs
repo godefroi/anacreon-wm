@@ -6,10 +6,8 @@ namespace Anacreon.Engine
 	{
 		public World()
 		{
-			Supplies = new Supplies();
-			Ships    = new Ships();
+			Fleet    = new Fleet();
 			Defenses = new Defenses();
-			Troops   = new Troops();
 
 			// TODO: remove this
 			Owner = new Player();
@@ -20,7 +18,7 @@ namespace Anacreon.Engine
 			get { return SpaceObjectType.World; }
 		}
 
-		public Player Owner { get; set; }
+		public Fleet Fleet { get; set; }
 
 		public WorldType WorldType { get; set; }
 
@@ -36,13 +34,7 @@ namespace Anacreon.Engine
 
 		public int Revolution { get; set; }
 
-		public Supplies Supplies { get; set; }
-
-		public Ships Ships { get; set; }
-
 		public Defenses Defenses { get; set; }
-
-		public Troops Troops { get; set; }
 
 		public string FlavorText { get; set; }
 	}

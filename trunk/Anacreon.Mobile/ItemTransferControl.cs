@@ -17,16 +17,16 @@ namespace Anacreon.Mobile
 			set { LabelLabel.Text = value; }
 		}
 
-		public string TopValue
+		public int TopValue
 		{
-			get { return TopValueLabel.Text;  }
-			set { TopValueLabel.Text = value; }
+			get { return Convert.ToInt32(TopValueLabel.Text); }
+			set { TopValueLabel.Text = value.ToString(); }
 		}
 
-		public string BottomValue
+		public int BottomValue
 		{
-			get { return BottomValueLabel.Text;  }
-			set { BottomValueLabel.Text = value; }
+			get { return Convert.ToInt32(BottomValueLabel.Text);  }
+			set { BottomValueLabel.Text = value.ToString(); }
 		}
 
 		public bool Selected
