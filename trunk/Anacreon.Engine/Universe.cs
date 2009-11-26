@@ -6,18 +6,12 @@ namespace Anacreon.Engine
 	{
 		public Universe(int x, int y)
 		{
-			Sectors = new Sector[x, y];
-
-			for( var xc = 0; xc < x; xc++ )
-			{
-				for( var yc = 0; yc < y; yc++ )
-					Sectors[xc, yc] = new Sector();
-			}
+			Sectors = new SectorCollection(x, y);
 		}
 
 		public Coordinate HomeSector { get; set; }
 
-		public Sector[,] Sectors { get; private set; }
+		public SectorCollection Sectors { get; private set; }
 
 		public Player HumanPlayer { get; set; }
 	}
