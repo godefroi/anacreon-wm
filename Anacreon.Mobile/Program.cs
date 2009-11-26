@@ -253,9 +253,9 @@ namespace Anacreon.Mobile
 
 			using( var sw = new System.IO.StreamWriter("\\storage card\\map_chars.txt", false) )
 			{
-				for( var y = 0; y <= u.Sectors.GetUpperBound(1); y++ )
+				for( var y = u.Sectors.LowerBoundY; y <= u.Sectors.UpperBoundY; y++ )
 				{
-					for( var x = 0; x <= u.Sectors.GetUpperBound(0); x++ )
+					for( var x = u.Sectors.LowerBoundX; x <= u.Sectors.UpperBoundX; x++ )
 					{
 						w.Start();
 						var chars = MapControl.GetSectorChars(u, x, y);

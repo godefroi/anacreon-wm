@@ -28,8 +28,6 @@ namespace Anacreon.Mobile
 			Offset      = Size.Empty;
 			ContextMenu = new ContextMenu();
 
-			//DoubleClick += (s, e) => { throw new Exception("double click"); };
-
 			InitializeComponent();
 
 			using( var g = CreateGraphics() )
@@ -43,7 +41,10 @@ namespace Anacreon.Mobile
 
 			ContextMenu.Popup += ContextMenu_Popup;
 
-			m_mapsize = new Size(((Universe.Sectors.GetLength(0) * 3) + 2) * CharacterSize.Width, (Universe.Sectors.GetLength(1) + 2) * CharacterSize.Height);
+			var len_x = Universe.Sectors.UpperBoundX - Universe.Sectors.LowerBoundX;
+			var len_y = Universe.Sectors.UpperBoundY - Universe.Sectors.LowerBoundY;
+
+			m_mapsize = new Size(((len_x * 3) + 2) * CharacterSize.Width, (len_y + 2) * CharacterSize.Height);
 
 			m_item_selworld = CreateMenuItem("Select World", Menu_SelectWorld);
 			m_item_depfleet = CreateMenuItem("Deploy Fleet", Menu_DeployFleet);
@@ -95,12 +96,12 @@ namespace Anacreon.Mobile
 			var swb = new System.Diagnostics.Stopwatch();
 			var sws = new System.Diagnostics.Stopwatch();
 
-			for( var y = 0; y <= DrawY && y + sect_y <= Universe.Sectors.GetUpperBound(1); y++ )
+			for( var y = 0; y <= DrawY && y + sect_y <= Universe.Sectors.UpperBoundY; y++ )
 			{
 				var y_pos = (y * CharacterSize.Height) + off_y + CharacterSize.Height;
 				var sects = new List<SectorChar[]>();
 
-				for( var x = 0; x <= DrawX && x + sect_x <= Universe.Sectors.GetUpperBound(0); x++ )
+				for( var x = 0; x <= DrawX && x + sect_x <= Universe.Sectors.UpperBoundX; x++ )
 					sects.Add(GetSectorChars(Universe, x + sect_x, y + sect_y));
 
 				var chars = sects.SelectMany(a => a).ToArray();
@@ -236,30 +237,31 @@ namespace Anacreon.Mobile
 
 		private void Menu_SelectWorld(object sender, EventArgs e)
 		{
-			if( !SelectedSector.HasValue )
+			var s = Universe.Sectors[SelectedSector];
+
+			if( s == null )
 				return;
 
-			var x = SelectedSector.Value.X;
-			var y = SelectedSector.Value.Y;
-			var w = Universe.Sectors[x,y].Object as World;
+			var w = s.Object as World;
 
 			if( w == null )
 				return;
 
-			OnWorldSelected(new WorldSelectedEventArgs(x, y, w));
+			OnWorldSelected(new WorldSelectedEventArgs(SelectedSector, w));
 		}
 		
 		private void Menu_DeployFleet(object sender, EventArgs e)
 		{
-			var world = Universe.Sectors[SelectedSector.Value.X, SelectedSector.Value.Y].Object as World;
-			var fleet = new Fleet();
+			var world = Universe.Sectors[SelectedSector].Object as World;
+			var fleet = new Fleet()
+			{
+				Owner = world.Owner,
+			};
 
 			using( var tf = new FleetTransferForm(world.Fleet, fleet, string.Format("Ready to deploy a new fleet from the world at {0}", SelectedSector)) )
-			{
 				tf.ShowDialog();
-			}
 
-			Universe.Sectors[SelectedSector.Value.X, SelectedSector.Value.Y].Fleets.Add(fleet);
+			Universe.Sectors[SelectedSector].Fleets.Add(fleet);
 
 			Invalidate();
 		}
@@ -270,7 +272,7 @@ namespace Anacreon.Mobile
 
 			if( SelectedSector != null )
 			{
-				var s = Universe.Sectors[SelectedSector.Value.X, SelectedSector.Value.Y];
+				var s = Universe.Sectors[SelectedSector];
 
 				if( s.Object != null && s.Object.Type == SpaceObjectType.World )
 				{
@@ -344,7 +346,7 @@ namespace Anacreon.Mobile
 				sel_x = -1;
 
 			// if we selected a valid sector, track that
-			if( sel_x < 0 || sel_y < 0 || sel_x > Universe.Sectors.GetUpperBound(0) || sel_y > Universe.Sectors.GetUpperBound(1) )
+			if( sel_x < Universe.Sectors.LowerBoundX || sel_y < Universe.Sectors.LowerBoundY || sel_x > Universe.Sectors.UpperBoundX || sel_y > Universe.Sectors.UpperBoundY )
 				return null;
 			else
 				return new Point(sel_x, sel_y);
